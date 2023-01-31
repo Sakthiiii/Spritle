@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import './index.css'
 
-const Answer = props => {
+const Result = props => {
   const {questionDetails} = props
   const {questionI} = questionDetails
-
   const firstWord = parseInt(questionI[0])
   const operationWord = questionI[1]
   let operator
@@ -37,6 +37,7 @@ const Answer = props => {
       break
   }
   
+ 
   return (
     <li className="answer-list-container">
       <p className="desc">
@@ -46,9 +47,8 @@ const Answer = props => {
       </p>
       <p className="desc">
         <span className="ans-span">Answer:</span> {answer}
-      
       </p>
     </li>
   )
 }
-export default Answer
+export default Result

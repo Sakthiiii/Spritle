@@ -4,7 +4,7 @@ import {v4 as uuidv4} from 'uuid'
 import './index.css'
 import Result from '../Results/index'
 
-class StudentMasterGame extends Component {
+class SpritleGame extends Component {
   state = {
     masterName: '',
     masterSubject: '',
@@ -18,6 +18,7 @@ class StudentMasterGame extends Component {
     isVisibleStudentLogIn: true,
     questionIs: '',
     questionsList: [],
+   
   }
 
   onLogoutMaster = () => {
@@ -123,6 +124,14 @@ class StudentMasterGame extends Component {
       questionsList: [...questionsList, newQuestion],
       questionIs: '',
     })
+  }
+   handleDelete = (id) => {
+    const {questionIs,  } = this.state
+
+    let copy=[...this.state.questionIs];
+    copy.splice(id,1);
+    this.setState({questionIs});
+
   }
 
   onClickAnswersQuestionsListIs = answer => {
@@ -335,7 +344,7 @@ class StudentMasterGame extends Component {
                 key={eachQ.id}
                 onClickCurrentAnswerIs={this.onClickCurrentAnswerIs}
               />
-             
+              
             ))}
           
        
@@ -368,4 +377,4 @@ class StudentMasterGame extends Component {
     )
   }
 }
-export default StudentMasterGame
+export default SpritleGame 
