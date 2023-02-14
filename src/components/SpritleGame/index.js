@@ -1,153 +1,153 @@
-import {Component} from 'react'
-import {v4 as uuidv4} from 'uuid'
+import { Component, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-import './index.css'
-import Result from '../Results/index'
+import converter from 'number-to-words'
+import { ToWords } from 'to-words';
+import "./index.css";
+//import Result from '../Results/index'
 
 class SpritleGame extends Component {
   state = {
-    masterName: '',
-    masterSubject: '',
+    masterName: "",
+    masterSubject: "",
     masterNameErr: false,
     masterSubjectErr: false,
     isVisibleMasterLogIn: true,
-    studentName: '',
-    studentRollNo: '',
+    studentName: "",
+    studentRollNo: "",
     studentNameErr: false,
     studentRollNoErr: false,
     isVisibleStudentLogIn: true,
-    questionIs: '',
+    questionIs: "",
     questionsList: [],
-   
-  }
+  };
 
   onLogoutMaster = () => {
     this.setState({
       isVisibleMasterLogIn: true,
-      masterName: '',
-      masterSubject: '',
-    })
-  }
+      masterName: "",
+      masterSubject: "",
+    });
+  };
 
   onLogoutStudent = () => {
     this.setState({
       isVisibleStudentLogIn: true,
-      studentName: '',
-      studentRollNo: '',
-    })
-    console.log('student logout')
-  }
+      studentName: "",
+      studentRollNo: "",
+    });
+    console.log("student logout");
+  };
 
-  onChangeQuestion = event => {
-    this.setState({questionIs: event.target.value})
-  }
+  onChangeQuestion = (event) => {
+    this.setState({ questionIs: event.target.value });
+  };
 
-  onChangeMasterName = event => {
-    this.setState({masterName: event.target.value})
-  }
+  onChangeMasterName = (event) => {
+    this.setState({ masterName: event.target.value });
+  };
 
-  onChangeSubjectName = event => {
-    this.setState({masterSubject: event.target.value})
-  }
+  onChangeSubjectName = (event) => {
+    this.setState({ masterSubject: event.target.value });
+  };
 
   onBlurMasterName = () => {
-    const {masterName} = this.state
-    if (masterName === '') {
-      this.setState({masterNameErr: true})
+    const { masterName } = this.state;
+    if (masterName === "") {
+      this.setState({ masterNameErr: true });
     }
-  }
+  };
 
   onBlurSubjectName = () => {
-    const {masterSubject} = this.state
-    if (masterSubject === '') {
-      this.setState({masterSubjectErr: true})
+    const { masterSubject } = this.state;
+    if (masterSubject === "") {
+      this.setState({ masterSubjectErr: true });
     }
-  }
+  };
 
-  onChangeStudentName = event => {
-    this.setState({studentName: event.target.value})
-  }
+  onChangeStudentName = (event) => {
+    this.setState({ studentName: event.target.value });
+  };
 
-  onChangeRollNo = event => {
-    this.setState({studentRollNo: event.target.value})
-  }
+  onChangeRollNo = (event) => {
+    this.setState({ studentRollNo: event.target.value });
+  };
 
   onBlurStudentName = () => {
-    const {studentName} = this.state
-    if (studentName === '') {
-      this.setState({studentNameErr: true})
+    const { studentName } = this.state;
+    if (studentName === "") {
+      this.setState({ studentNameErr: true });
     }
-  }
+  };
 
   onBlurRollNo = () => {
-    const {studentRollNo} = this.state
-    if (studentRollNo === '') {
-      this.setState({studentRollNoErr: true})
+    const { studentRollNo } = this.state;
+    if (studentRollNo === "") {
+      this.setState({ studentRollNoErr: true });
     }
-  }
+  };
 
-  onSubmitMasterLogInData = event => {
-    const {masterName, masterSubject} = this.state
-    event.preventDefault()
-    if (masterName === '' && masterSubject === '') {
+  onSubmitMasterLogInData = (event) => {
+    const { masterName, masterSubject } = this.state;
+    event.preventDefault();
+    if (masterName === "" && masterSubject === "") {
       this.setState({
         masterNameErr: true,
         masterSubjectErr: true,
-      })
+      });
     } else {
-      this.setState({isVisibleMasterLogIn: false})
+      this.setState({ isVisibleMasterLogIn: false });
     }
-  }
+  };
 
-  onSubmitStudentLogInData = event => {
-    const {studentName, studentRollNo} = this.state
-    event.preventDefault()
-    if (studentName === '' && studentRollNo === '') {
+  onSubmitStudentLogInData = (event) => {
+    const { studentName, studentRollNo } = this.state;
+    event.preventDefault();
+    if (studentName === "" && studentRollNo === "") {
       this.setState({
         studentNameErr: true,
         studentRollNoErr: true,
-      })
+      });
     } else {
-      this.setState({isVisibleStudentLogIn: false})
+      this.setState({ isVisibleStudentLogIn: false });
     }
-  }
+  };
 
-  onClickMasterAskingQuestion = event => {
-    event.preventDefault()
-    const {questionIs, questionsList} = this.state
+  onClickMasterAskingQuestion = (event) => {
+    event.preventDefault();
+    const { questionIs, questionsList } = this.state;
     const newQuestion = {
       id: uuidv4(),
       questionI: questionIs,
-    }
-    console.log(questionIs)
+    };
+    console.log(questionIs);
     this.setState({
       questionsList: [...questionsList, newQuestion],
-      questionIs: '',
-    })
-  }
-   handleDelete = (id) => {
-    const {questionIs,  } = this.state
+      questionIs: "",
+      //questionsList:
+    });
+  };
 
-    let copy=[...this.state.questionIs];
-    copy.splice(id,1);
-    this.setState({questionIs});
+  handleDelete = (id) => {
+    const { questionIs } = this.state;
 
-  }
+    let copy = [...this.state.questionIs];
+    copy.splice(id, 1);
+    this.setState({ questionIs });
+  };
 
-  onClickAnswersQuestionsListIs = answer => {
-    this.setState({answerIs: answer})
-  }
+  onClickAnswersQuestionsListIs = (answer) => {
+    this.setState({ answerIs: answer });
+  };
 
   renderMasterContainerIs() {
-    const {
-      masterNameErr,
-      masterSubjectErr,
-      masterName,
-      masterSubject,
-    } = this.state
+    const { masterNameErr, masterSubjectErr, masterName, masterSubject } =
+      this.state;
     return (
       <div className="master-container">
-        <h1 className="master-heading" style={{fontFamily:'Montserrat'}}>Log In - Master</h1>
+        <h1 className="master-heading" style={{ fontFamily: "Montserrat" }}>
+          Log In - Master
+        </h1>
         <form
           className="master-form-container"
           onSubmit={this.onSubmitMasterLogInData}
@@ -190,21 +190,20 @@ class SpritleGame extends Component {
           </button>
         </form>
       </div>
-    )
+    );
   }
 
   renderStudentContainerIs() {
-    const {
-      studentNameErr,
-      studentRollNoErr,
-      studentName,
-      studentRollNo,
-    } = this.state
+    const { studentNameErr, studentRollNoErr, studentName, studentRollNo } =
+      this.state;
     return (
       <div className="student-container">
-
- 
-        <h1 className="master-heading"  style={{fontFamily:'Montserrat',  color: '#183f82e4'}}>Log In - Student</h1>
+        <h1
+          className="master-heading"
+          style={{ fontFamily: "Montserrat", color: "#183f82e4" }}
+        >
+          Log In - Student
+        </h1>
         <form
           className="master-form-container"
           onSubmit={this.onSubmitStudentLogInData}
@@ -226,7 +225,7 @@ class SpritleGame extends Component {
 
           <br />
           <label htmlFor="masterSubjectName" className="label">
-            Enter  Subject Name
+            Enter Subject Name
           </label>
           <br />
           <input
@@ -240,7 +239,7 @@ class SpritleGame extends Component {
           />
           {studentRollNoErr && <p className="error">*Please Enter Roll No</p>}
           <label htmlFor="masterSubjectName" className="label">
-            Enter Your Class 
+            Enter Your Class
           </label>
           <br />
           <input
@@ -255,36 +254,35 @@ class SpritleGame extends Component {
           </button>
         </form>
       </div>
-    )
+    );
   }
 
   renderAfterMasterLogIn() {
-    const {masterName, masterSubject, questionIs, questionsList} = this.state
-    const {studentName, studentRollNo, } = this.state
+    const { masterName, masterSubject, questionIs, questionsList } = this.state;
+    const { studentName, studentRollNo } = this.state;
 
     return (
       <div className="master-login-container">
         <button
           type="button-"
-          className="log-out-button-t" style={{marginLeft:"380px"}}
+          className="log-out-button-t"
+          style={{ marginLeft: "380px" }}
           onClick={this.onLogoutMaster}
         >
           <span></span>
           <span></span>
           <span></span>
           <span></span>
-
           Logout
         </button>
         <h1 className="master-login-heading">
-          Hello{' '}
-         
-          <span className="master-heading-span">{masterName}</span>
-          (<span className='master'>{masterSubject}</span>{' '}Master)
+          Hello <span className="master-heading-span">{masterName}</span>(
+          <span className="master">{masterSubject}</span> Master)
         </h1>
         <div className="master-questions-container">
           <h1 className="master-login-desc">
-            You can ask few mathematical questions to Mr/Ms <span className='master-heading-name'> {studentName} </span>
+            You can ask few mathematical questions to Mr/Ms{" "}
+            <span className="master-heading-name"> {studentName} </span>
           </h1>
           <form
             className="master-question-form-container"
@@ -305,12 +303,13 @@ class SpritleGame extends Component {
           </form>
         </div>
       </div>
-    )
+    );
   }
 
   renderAfterStudentLogIn() {
-    const {studentName, studentRollNo, questionsList, questionIs} = this.state
-   
+    const { studentName, studentRollNo, questionsList, questionIs } =
+      this.state;
+
     return (
       <div className="student-after-login-container">
         <button
@@ -326,41 +325,34 @@ class SpritleGame extends Component {
         </button>
 
         <h1 className="student-after-login-heading">
-          Hello {' '}
-         
-          <span className="master-heading-span-">{studentName}</span>
-          <span className="master-heading-span-s">({' '} <span className='span'>{studentRollNo} </span> Student)</span>
-        
+          Hello <span className="master-heading-span-">{studentName}</span>
+          <span className="master-heading-span-s">
+            ( <span className="span">{studentRollNo} </span> Student)
+          </span>
         </h1>
         <h1 className="master-heading-span--">RESULT :</h1>
 
         <div className="answers-list-is">
           <p></p>
           <ul className="answers-un-order-container">
-          
-            {questionsList.map(eachQ => (
+            {questionsList.map((eachQ) => (
               <Result
                 questionDetails={eachQ}
                 key={eachQ.id}
                 onClickCurrentAnswerIs={this.onClickCurrentAnswerIs}
               />
-              
             ))}
-          
-       
           </ul>
         </div>
       </div>
-    )
+    );
   }
 
   render() {
-    const {isVisibleMasterLogIn, isVisibleStudentLogIn} = this.state
+    const { isVisibleMasterLogIn, isVisibleStudentLogIn } = this.state;
     return (
       <div className="game-container">
-        <h1 className="game-heading">
-         You Tell , I Do
-        </h1>
+        <h1 className="game-heading">You Tell , I Do</h1>
         <div className="master-student-container">
           <div className="master-container">
             {isVisibleMasterLogIn
@@ -374,7 +366,65 @@ class SpritleGame extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
-export default SpritleGame 
+export default SpritleGame;
+
+
+
+
+
+const Result = (props) => {
+  const { questionDetails } = props;
+  const { questionI } = questionDetails;
+  const firstWord = parseInt(questionI[0]);
+  const operationWord = questionI[1];
+  let operator;
+  const secondWord = parseInt(questionI[2]);
+
+  let answer;
+
+  const toWords = new ToWords();
+
+
+  switch (operationWord) {
+    case "+":
+      answer = firstWord + secondWord;
+      operator = "plus";
+      //   return answer
+      break;
+    case "-":
+      answer = firstWord - secondWord;
+      operator = "minus";
+      //   return answer
+      break;
+    case "*":
+      answer = firstWord * secondWord;
+      operator = "times";
+      //   return answer
+      break;
+    case "/":
+      answer = Math.round(firstWord / secondWord);
+      operator = "divided_by";
+      //   return answer
+      break;
+    default:
+      answer = "*** Error ***";
+      //   return null
+      break;
+  }
+
+  return (
+    <li className="answer-list-container">
+      <p className="desc">
+        <span className="ans-span"> Question:</span>
+        {"  "}
+        {[converter.toWords(firstWord)]}({operator} ({[converter.toWords(secondWord)]}())) <span className="ans-span">?</span>
+      </p>
+      <p className="desc">
+        <span className="ans-span">Answer:</span> {answer}
+      </p>
+    </li>
+  );
+};

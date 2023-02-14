@@ -10,6 +10,7 @@ const Result = props => {
   const secondWord = parseInt(questionI[2])
 
   let answer
+
   switch (operationWord) {
     case '+':
       answer = firstWord + secondWord
@@ -37,13 +38,15 @@ const Result = props => {
       break
   }
   
+  let operat;
+  let result 
  
   return (
     <li className="answer-list-container">
       <p className="desc">
         <span className="ans-span"> Question:</span>
         {'  '}
-        {firstWord} {operator} {secondWord} <span className="ans-span">?</span>
+       <span id='word'>{firstWord}</span> <span>{operator}</span> <span id='word'>{secondWord}</span>  <span className="ans-span">?</span>
       </p>
       <p className="desc">
         <span className="ans-span">Answer:</span> {answer}
