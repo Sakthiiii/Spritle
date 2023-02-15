@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './index.css'
-
+import Number from './Number'
 const Result = props => {
   const {questionDetails} = props
   const {questionI} = questionDetails
@@ -37,8 +37,7 @@ const Result = props => {
       //   return null
       break
   }
-  
-  let operat;
+  let output =document.getElementsByClassName('word')
   let result 
  
   return (
